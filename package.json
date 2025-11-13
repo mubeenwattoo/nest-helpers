@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.10",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "multer": "^2.0.1",
+    "nodemailer": "^7.0.3",
+    "tailwindcss": "^4.1.10"
+  },
+  "name": "worldmap-landing-page-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mubeenwattoo/WorldMap.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mubeenwattoo/WorldMap/issues"
+  },
+  "homepage": "https://github.com/mubeenwattoo/WorldMap#readme"
+}

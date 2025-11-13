@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+.hero-bg {
+  background: linear-gradient(180deg, #f4efe88f 0%, #faf8f500 100%),
+              url('/assets/images/hero-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+   background-position:
+    center top,     
+    center 90px; 
+}
+@media(max-width:1024px){
+  .hero-bg {
+  background-size: contain;
+  background-position:
+    center top,     
+    center 550px; 
+    
+}
+}
