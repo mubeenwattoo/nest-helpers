@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="./assets/css/output.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+ 
+
+<title>Quest Survey Page 1</title>
+</head>
+<body class="font-[lexend]">
+
+ <section class="gradient-bg pt-8  lg:px-[64px] lg:pb-[48px] pb-[24px] p-6 ">
+<img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] ">
+
+      <h2 class="text-[#5B7B5A] lg:text-[48px] text-[24px] font-[500] lg:mb-10 mb-6 lg:mt-6 mt-12 text-center">Let us find a <br class="lg:hidden block"> great home for you</h2>
+
+  <div class=" mx-auto grid lg:grid-cols-[300px_1fr] gap-20">
+
+    <div class="lg:flex hidden flex-col gap-10">
+
+      <!-- Step 1 -->
+      <div class="flex flex-col items-start  gap-3 p-6 rounded-[14px] border-[2px] border-[var(--Color-Green,#5B7B5A)]
+  bg-[var(--Color-Light-Green,#D9E1CE)] shadow-[0_20px_25px_-5px_rgba(0,0,0,0.10),_0_8px_10px_-6px_rgba(0,0,0,0.10)] ">
+          <span class="mx-auto w-12 h-12 rounded-full bg-[#5B7B5A] text-[24px] font-[300] text-white flex items-center justify-center ">1</span>
+
+            <h3 class="text-[#2D2D2D]  text-[24px] font-[500] mt-3 ">Create Your Profile</h3>
+            <p class="text-[#675F57] text-[16px] font-[400]">Tell us about yourself and preferences</p>
+      </div>
+
+       <div class="flex flex-col items-start  gap-3 p-6 
+  rounded-[14px]
+  border-[2px]
+  border-[var(--Color-Dark-Brown-30,rgba(103,95,87,0.30))]
+  bg-[var(--Color-White-10,rgba(255,255,255,0.10))]
+  shadow-[0_20px_25px_-5px_rgba(0,0,0,0.10),_0_8px_10px_-6px_rgba(0,0,0,0.10)]">
+          <span class="mx-auto w-12 h-12 rounded-full bg-[var(--Color-White,#FFF)]
+  shadow-[0_0_0_2.4px_#FAF8F6,_
+          0_6px_9px_-1.8px_rgba(0,0,0,0.10),_
+          0_2.4px_3.6px_-2.4px_rgba(0,0,0,0.10)] text-[24px] font-[300] text-[#5B7B5A] flex items-center justify-center ">2</span>
+
+            <h3 class="text-[#2D2D2D]  text-[24px] font-[500] mt-3 ">Get Matched</h3>
+            <p class="text-[#675F57] text-[16px] font-[400]">We connect you with households that fit your lifestyle</p>
+      </div>
+        <div class="flex flex-col items-start  gap-3 p-6 
+  rounded-[14px]
+  border-[2px]
+  border-[var(--Color-Dark-Brown-30,rgba(103,95,87,0.30))]
+  bg-[var(--Color-White-10,rgba(255,255,255,0.10))]
+  shadow-[0_20px_25px_-5px_rgba(0,0,0,0.10),_0_8px_10px_-6px_rgba(0,0,0,0.10)]">
+          <span class="mx-auto w-12 h-12 rounded-full bg-[var(--Color-White,#FFF)]
+  shadow-[0_0_0_2.4px_#FAF8F6,_
+          0_6px_9px_-1.8px_rgba(0,0,0,0.10),_
+          0_2.4px_3.6px_-2.4px_rgba(0,0,0,0.10)] text-[24px] font-[300] text-[#5B7B5A] flex items-center justify-center ">3</span>
+
+            <h3 class="text-[#2D2D2D]  text-[24px] font-[500] mt-3 ">Interview</h3>
+            <p class="text-[#675F57] text-[16px] font-[400]">Meet the family, agree on expectations, and move into your new home</p>
+      </div>
+
+     
+
+    </div>
+
+    <div>
+
+
+       <div class="flex flex-col gap-8">
+      <div class="grid lg:grid-cols-2 items-center lg:gap-14 gap-4">
+
+          <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] lg:text-start text-center ">How long are you hoping to live with and assist a host family?</label>
+
+<div class="dropdown relative w-full">
+
+  <button 
+    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
+           h-[44px] px-4 rounded-[10px] border-[2px]
+           border-[rgba(103,95,87,0.30)]
+           flex items-center justify-between"
+  >
+    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
+      Select
+    </span>
+    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
+  </button>
+
+  <div 
+    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
+           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
+           rounded-[10px] shadow-lg z-50"
+  >
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      Less than 3 months
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      3-6 months
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      More than 6 months
+    </div>
+  </div>
+
+</div>
+
+
+
+
+        
+      </div>
+ <div class="grid lg:grid-cols-2 items-center lg:gap-14 gap-4">
+
+          <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] lg:text-start text-center ">What’s Your Current Work or 
+Study Situation?</label>
+
+<div class="dropdown relative w-full">
+
+  <button 
+    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
+           h-[44px] px-4 rounded-[10px] border-[2px]
+           border-[rgba(103,95,87,0.30)]
+           flex items-center justify-between"
+  >
+    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
+      Select
+    </span>
+    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
+  </button>
+
+  <div 
+    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
+           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
+           rounded-[10px] shadow-lg z-50"
+  >
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      I will work/study from home
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD]  cursor-pointer">
+      I have a job/study outside of the home
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+    I'm currently in between jobs
+    </div>
+  </div>
+
+</div>
+ 
+
+        
+      </div>
+      <div class="grid lg:grid-cols-2 items-center lg:gap-14 gap-4">
+
+          <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] lg:text-start text-center">Your age and gender </label>
+ <div class="flex items-center gap-8 justify-between">
+
+<div class="dropdown relative w-full">
+
+  <button 
+    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
+           h-[44px] px-4 rounded-[10px] border-[2px]
+           border-[rgba(103,95,87,0.30)]
+           flex items-center justify-between"
+  >
+    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
+      Age
+    </span>
+    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
+  </button>
+
+  <div 
+    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
+           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
+           rounded-[10px] shadow-lg z-50"
+  >
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      16-20
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      20-30
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      30-40
+    </div>
+  </div>
+
+</div>
+
+         <div class="dropdown relative w-full">
+
+  <button 
+    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
+           h-[44px] px-4 rounded-[10px] border-[2px]
+           border-[rgba(103,95,87,0.30)]
+           flex items-center justify-between"
+  >
+    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
+      Gender
+    </span>
+    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
+  </button>
+
+  <div 
+    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
+           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
+           rounded-[10px] shadow-lg z-50"
+  >
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+    Male
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+    Female
+    </div>
+
+    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
+      Transgender
+    </div>
+  </div>
+
+</div>
+         
+          </div>
+
+        
+      </div>
+      </div>
+     
+      <div class="mt-10">
+        <div class="flex lg:flex-row flex-col items-center  lg:gap-8 gap-3">
+        <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] ">
+          Your Location Preference 
+        </label>
+        <span class="text-[16px] font-[300] text-[#7D7A74] ">(Select all that apply)</span>
+        </div>
+
+        <div class="flex lg:flex-row flex-col items-center gap-2 mt-4">
+          <button data-pill  class="w-full pill border border-[#675F57] lg:px-6 px-4 py-[10px] rounded-full text-[#675F57] lg:text-[19px] text-[16px]  font-[400]">I want to stay within my local area</button>
+         <span class="text-[16px] font-[300] text-[#7D7A74] ">and/or </span>
+          <button id="relocateBtn"  data-pill  class="w-full pill border border-[#675F57] lg:px-8 px-4 py-[10px] rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">I am interested in relocating</button>
+        
+        </div>
+         <input id="relocateField" type="text" class="hidden w-full mt-6 p-3 text-[20px] lg:placeholder:text-[20px]
+         placeholder:text-[16px] font-[400] text-center
+               border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
+               placeholder="(Optional) If you're interested in relocating, please describe your ideal location">
+
+      
+      </div>
+
+      <div class="mt-10">
+   
+
+        <div class="flex lg:flex-row flex-col items-center  lg:gap-8 gap-3">
+        <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] ">
+           Areas You Can Help With
+        </label>
+        <span class="text-[16px] font-[300] text-[#7D7A74] ">(Select all that apply)</span>
+        </div>
+
+        <div class="grid lg:grid-cols-3 grid-cols-2 gap-4 mt-8">
+          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Cooking</button>
+          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Organizing</button>
+          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Cleaning</button>
+          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Pet Care</button>
+            <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Errands</button>
+            <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Child Tutoring</button>
+            <button data-pill  class="pill border border-[#675F57] lg:px-8 px-0  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">After-School Care</button>
+                      <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Elder Care</button>
+                      <button id="otherBtn" data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
+          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Other</button>
+ 
+  
+        </div>
+          
+      </div>
+
+      <!-- Notes -->
+       <textarea id="otherField" type="text" class="hidden w-full mt-8 pt-3 lg:pb-0 pb-2 leading-[20px] lg:text-[20px] lg:placeholder:text-[20px]
+         placeholder:text-[16px] text-[16px] font-[400] text-center
+               border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
+               placeholder="Please describe other tasks you can assist with"></textarea>
+     
+
+      <!-- BUTTON -->
+      <div class="lg:mt-16  mx-auto relative flex items-center justify-center">
+        
+
+         <button id="continueBtn" class="cursor-not-allowed duration-300 opacity-30  lg:text-[24px] text-[16px] font-[500] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.10),_0_4px_6px_-4px_rgba(0,0,0,0.10)] lg:w-[560px] w-[85%] mx-auto flex items-center justify-center lg:mx-0 lg:mt-0 mt-10 bg-[#BE5103]  text-white  px-4 py-3 rounded-full ">
+          Continue
+          
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="w-full bg-[#2E2E2E] pt-[42px] pb-[32px] lg:px-[64px] px-[24px]">
+  <div class="w-full mx-auto text-center">
+
+<img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] mx-auto ">
+
+
+    <hr class="border-[#7D7A74] lg:mb-12 mb-6 lg:mt-10 mt-5">
+
+    <p class="text-[#7D7A74] text-[16px] font-[400]">
+      © 2025 NestHelpers. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

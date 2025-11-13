@@ -15,6 +15,15 @@ body {
     center top,     
     center 90px; 
 }
+
+
+ 
+
+   
+.gradient-bg{
+  background: var(--Beige-BG, linear-gradient(180deg, #F4EFE8 0%, #FAF8F5 100%));
+}
+    
 @media(max-width:1024px){
   .hero-bg {
   background-size: contain;
