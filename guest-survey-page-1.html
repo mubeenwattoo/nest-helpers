@@ -11,12 +11,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
  
 
-<title>Quest Survey Page 1</title>
+<title>Guest Survey Page 1</title>
 </head>
 <body class="font-[lexend]">
 
  <section class="gradient-bg pt-8  lg:px-[64px] lg:pb-[48px] pb-[24px] p-6 ">
-<a href="./"><img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] "></a>
+<a href="./" class="inline-flex"><img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] "></a>
 
 
       <h2 class="text-[#5B7B5A] lg:text-[48px] text-[24px] font-[500] lg:mb-10 mb-6 lg:mt-6 mt-12 text-center">Let us find a <br class="lg:hidden block"> great home for you</h2>
@@ -466,6 +466,19 @@ otherField.classList.toggle("hidden");
   
   // Initial check after DOM is ready
   setTimeout(checkFormValidity, 100);
+  
+  // Handle continue button click - only navigate when active
+  const continueBtn = document.getElementById("continueBtn");
+  continueBtn.addEventListener("click", (e) => {
+    // Check if button is active (not disabled)
+    if (continueBtn.classList.contains("opacity-30") || continueBtn.classList.contains("cursor-not-allowed")) {
+      e.preventDefault();
+      return; // Don't navigate if button is inactive
+    }
+    
+    // Button is active, navigate to next page
+    window.location.href = "guest-survey-page-7.html";
+  });
 </script>
 
 

@@ -23,6 +23,9 @@ body {
 .gradient-bg{
   background: var(--Beige-BG, linear-gradient(180deg, #F4EFE8 0%, #FAF8F5 100%));
 }
+.gradient-bg-2{
+  background: var(--Beige-BG, linear-gradient(180deg,  #FAF8F5 0%, #F4EFE8 100%));
+}
     
 @media(max-width:1024px){
   .hero-bg {

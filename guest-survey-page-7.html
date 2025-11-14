@@ -11,16 +11,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
  
 
-<title>Quest Survey Page 1</title>
+<title>Guest Survey Page 7</title>
 </head>
 <body class="font-[lexend]">
 
  <section class="gradient-bg pt-8  lg:px-[64px] lg:pb-[48px] pb-[24px] p-6 ">
-<img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] ">
+<a href="./" class="inline-flex"><img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] "></a>
+
 
       <h2 class="text-[#5B7B5A] lg:text-[48px] text-[24px] font-[500] lg:mb-10 mb-6 lg:mt-6 mt-12 text-center">Let us find a <br class="lg:hidden block"> great home for you</h2>
 
-  <div class=" mx-auto grid lg:grid-cols-[300px_1fr] gap-20">
+  <div class=" mx-auto grid lg:grid-cols-[300px_1fr] gap-32">
 
     <div class="lg:flex hidden flex-col gap-10">
 
@@ -67,243 +68,206 @@
     </div>
 
     <div>
-
-
-       <div class="flex flex-col gap-8">
-      <div class="grid lg:grid-cols-2 items-center lg:gap-14 gap-4">
-
-          <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] lg:text-start text-center ">How long are you hoping to live with and assist a host family?</label>
-
-<div class="dropdown relative w-full">
-
-  <button 
-    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
-           h-[44px] px-4 rounded-[10px] border-[2px]
-           border-[rgba(103,95,87,0.30)]
-           flex items-center justify-between"
-  >
-    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
-      Select
-    </span>
-    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
-  </button>
-
+      <div class="flex flex-col lg:gap-10 gap-6">
+<div class="flex items-center gap-6  w-full">
+<div x-data="{ on: false }" class="select-none cursor-pointer">
   <div 
-    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
-           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
-           rounded-[10px] shadow-lg z-50"
+    @click="on = !on"
+    class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
+    :class="on ? 'bg-[#675F57] border-[#675F57]' : 'bg-white border-[#675F57]'"
   >
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      Less than 3 months
-    </div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      3-6 months
-    </div>
+      <div 
+        class="absolute lg:w-[26px] lg:h-[26px] w-[22px] h-[22px] rounded-full transition-all duration-300 transform"
+        style="left:4px;" 
+        :class="on 
+          ? 'translate-x-[52px] bg-white' 
+          : 'translate-x-0 bg-[#675F57]'"
+      ></div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      More than 6 months
-    </div>
+      <span 
+        class="absolute lg:text-[20px] text-[16px] font-[400]  transition-all duration-300"
+        :class="on 
+          ? 'left-[14px] text-white' 
+          : 'right-[14px] text-[#675F57]'"
+        x-text="on ? 'Yes' : 'No'"
+      ></span>
+
+      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
   </div>
-
 </div>
-
-
-
-
-        
-      </div>
- <div class="grid lg:grid-cols-2 items-center lg:gap-14 gap-4">
-
-          <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] lg:text-start text-center ">What’s Your Current Work or 
-Study Situation?</label>
-
-<div class="dropdown relative w-full">
-
-  <button 
-    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
-           h-[44px] px-4 rounded-[10px] border-[2px]
-           border-[rgba(103,95,87,0.30)]
-           flex items-center justify-between"
-  >
-    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
-      Select
-    </span>
-    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
-  </button>
-
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
+    Do you have any pets or children living with you?
+  </span>
+</div>
+<div class="flex items-center gap-6  w-full">
+<div x-data="{ on: false }" class="select-none cursor-pointer">
   <div 
-    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
-           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
-           rounded-[10px] shadow-lg z-50"
+    @click="on = !on"
+    class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
+    :class="on ? 'bg-[#675F57] border-[#675F57]' : 'bg-white border-[#675F57]'"
   >
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      I will work/study from home
-    </div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD]  cursor-pointer">
-      I have a job/study outside of the home
-    </div>
+      <div 
+        class="absolute lg:w-[26px] lg:h-[26px] w-[22px] h-[22px] rounded-full transition-all duration-300 transform"
+        style="left:4px;" 
+        :class="on 
+          ? 'translate-x-[52px] bg-white' 
+          : 'translate-x-0 bg-[#675F57]'"
+      ></div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-    I'm currently in between jobs
-    </div>
+      <span 
+        class="absolute lg:text-[20px] text-[16px] font-[400]  transition-all duration-300"
+        :class="on 
+          ? 'left-[14px] text-white' 
+          : 'right-[14px] text-[#675F57]'"
+        x-text="on ? 'Yes' : 'No'"
+      ></span>
+
+      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
   </div>
-
 </div>
- 
-
-        
-      </div>
-      <div class="grid lg:grid-cols-2 items-center lg:gap-14 gap-4">
-
-          <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] lg:text-start text-center">Your age and gender </label>
- <div class="flex items-center gap-8 justify-between">
-
-<div class="dropdown relative w-full">
-
-  <button 
-    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
-           h-[44px] px-4 rounded-[10px] border-[2px]
-           border-[rgba(103,95,87,0.30)]
-           flex items-center justify-between"
-  >
-    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
-      Age
-    </span>
-    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
-  </button>
-
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
+    You’re expected to contribute up to 10 hours of household assistance per week. Would you be interested in receiving additional hourly pay to provide assistance beyond 10 hours?
+  </span>
+</div>
+<div class="flex items-center gap-6  w-full">
+<div x-data="{ on: false }" class="select-none cursor-pointer">
   <div 
-    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
-           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
-           rounded-[10px] shadow-lg z-50"
+    @click="on = !on"
+    class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
+    :class="on ? 'bg-[#675F57] border-[#675F57]' : 'bg-white border-[#675F57]'"
   >
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      16-20
-    </div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      20-30
-    </div>
+      <div 
+        class="absolute lg:w-[26px] lg:h-[26px] w-[22px] h-[22px] rounded-full transition-all duration-300 transform"
+        style="left:4px;" 
+        :class="on 
+          ? 'translate-x-[52px] bg-white' 
+          : 'translate-x-0 bg-[#675F57]'"
+      ></div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      30-40
-    </div>
+      <span 
+        class="absolute lg:text-[20px] text-[16px] font-[400]  transition-all duration-300"
+        :class="on 
+          ? 'left-[14px] text-white' 
+          : 'right-[14px] text-[#675F57]'"
+        x-text="on ? 'Yes' : 'No'"
+      ></span>
+
+      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
   </div>
-
 </div>
-
-         <div class="dropdown relative w-full">
-
-  <button 
-    class="dropdown-btn  w-full text-[#675F57] lg:text-[20px] text-[16px] font-[400]
-           h-[44px] px-4 rounded-[10px] border-[2px]
-           border-[rgba(103,95,87,0.30)]
-           flex items-center justify-between"
-  >
-    <span class="dropdown-value text-center mx-auto text-[rgba(103,95,87,0.30)]">
-      Gender
-    </span>
-    <img src="./assets/images/arrow-down.svg" class="size-4" alt="arrow-down">
-  </button>
-
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
+Do you own a car?
+</span>
+</div>
+<div class="flex items-center gap-6  w-full">
+<div x-data="{ on: false }" class="select-none cursor-pointer">
   <div 
-    class=" dropdown-menu hidden absolute left-0 right-0 mt-2  
-           border-2 gradient-bg border-[rgba(103,95,87,0.30)]
-           rounded-[10px] shadow-lg z-50"
+    @click="on = !on"
+    class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
+    :class="on ? 'bg-[#675F57] border-[#675F57]' : 'bg-white border-[#675F57]'"
   >
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-    Male
-    </div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-    Female
-    </div>
+      <div 
+        class="absolute lg:w-[26px] lg:h-[26px] w-[22px] h-[22px] rounded-full transition-all duration-300 transform"
+        style="left:4px;" 
+        :class="on 
+          ? 'translate-x-[52px] bg-white' 
+          : 'translate-x-0 bg-[#675F57]'"
+      ></div>
 
-    <div data-option class="px-4 py-2 text-[#675F57] hover:bg-[#C9D5BD] cursor-pointer">
-      Transgender
-    </div>
+      <span 
+        class="absolute lg:text-[20px] text-[16px] font-[400]  transition-all duration-300"
+        :class="on 
+          ? 'left-[14px] text-white' 
+          : 'right-[14px] text-[#675F57]'"
+        x-text="on ? 'Yes' : 'No'"
+      ></span>
+
+      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
   </div>
-
 </div>
-         
-          </div>
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
+Do you have references that would vouch for you as a reliable and competent helper?
+</span>
+</div>
+<div class="flex items-center gap-6  w-full">
+<div x-data="{ on: false }" class="select-none cursor-pointer">
+  <div 
+    @click="on = !on"
+    class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
+    :class="on ? 'bg-[#675F57] border-[#675F57]' : 'bg-white border-[#675F57]'"
+  >
 
-        
-      </div>
-      </div>
-     
-      <div class="mt-10">
-        <div class="flex lg:flex-row flex-col items-center  lg:gap-8 gap-3">
-        <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] ">
-          Your Location Preference 
-        </label>
-        <span class="text-[16px] font-[300] text-[#7D7A74] ">(Select all that apply)</span>
-        </div>
+      <div 
+        class="absolute lg:w-[26px] lg:h-[26px] w-[22px] h-[22px] rounded-full transition-all duration-300 transform"
+        style="left:4px;" 
+        :class="on 
+          ? 'translate-x-[52px] bg-white' 
+          : 'translate-x-0 bg-[#675F57]'"
+      ></div>
 
-        <div class="flex lg:flex-row flex-col items-center gap-2 mt-4">
-          <button data-pill  class="w-full pill border border-[#675F57] lg:px-6 px-4 py-[10px] rounded-full text-[#675F57] lg:text-[19px] text-[16px]  font-[400]">I want to stay within my local area</button>
-         <span class="text-[16px] font-[300] text-[#7D7A74] ">and/or </span>
-          <button id="relocateBtn"  data-pill  class="w-full pill border border-[#675F57] lg:px-8 px-4 py-[10px] rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">I am interested in relocating</button>
-        
-        </div>
-         <input id="relocateField" type="text" class="hidden w-full mt-6 p-3 text-[20px] lg:placeholder:text-[20px]
-         placeholder:text-[16px] font-[400] text-center
+      <span 
+        class="absolute lg:text-[20px] text-[16px] font-[400]  transition-all duration-300"
+        :class="on 
+          ? 'left-[14px] text-white' 
+          : 'right-[14px] text-[#675F57]'"
+        x-text="on ? 'Yes' : 'No'"
+      ></span>
+
+      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
+  </div>
+</div>
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
+Do you have a college degree?
+</span>
+</div>
+<div class="flex lg:items-end  lg:flex-row flex-col items-center lg:gap-12 gap-0 lg:mt-0 mt-6  w-full">
+
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
+Current zip code where you live
+</span>
+ <input id="zipCodeInput" type="number" class=" lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+         placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
-               placeholder="(Optional) If you're interested in relocating, please describe your ideal location">
+               placeholder="Zip Code">
 
-      
-      </div>
+</div>
 
-      <div class="mt-10">
+<div class="flex lg:items-end lg:flex-row xl:gap-36 flex-col items-center lg:gap-12 gap-0 lg:mt-0 mt-6  w-full">
+
+<span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400] xl:whitespace-nowrap">
+Your name and email
+</span>
+<div class="flex items-center lg:flex-row flex-col lg:justify-between lg:gap-6">
+ <input id="firstNameInput" type="text" class=" lg:mt-0 mt-4 lg:w-[200px] p-3 text-[20px] lg:placeholder:text-[20px] 
+         placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
+               border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
+               placeholder="First Name">
+               <input id="emailInput" type="email" class=" lg:w-[216px] lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+         placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
+               border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
+               placeholder="Email">
+               </div>
+
+</div>
+
+
+
+</div>
+       
+     
    
 
-        <div class="flex lg:flex-row flex-col items-center  lg:gap-8 gap-3">
-        <label class="text-[#2D2D2D] lg:text-[20px] text-[16px]  font-[400] ">
-           Areas You Can Help With
-        </label>
-        <span class="text-[16px] font-[300] text-[#7D7A74] ">(Select all that apply)</span>
-        </div>
-
-        <div class="grid lg:grid-cols-3 grid-cols-2 gap-4 mt-8">
-          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Cooking</button>
-          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Organizing</button>
-          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Cleaning</button>
-          <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Pet Care</button>
-            <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Errands</button>
-            <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Child Tutoring</button>
-            <button data-pill  class="pill border border-[#675F57] lg:px-8 px-0  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">After-School Care</button>
-                      <button data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Elder Care</button>
-                      <button id="otherBtn" data-pill  class="pill border border-[#675F57] lg:px-8 px-4  py-[10px] 
-          rounded-full text-[#675F57] lg:text-[20px] text-[16px]  font-[400]">Other</button>
- 
-  
-        </div>
-          
-      </div>
-
-      <!-- Notes -->
-       <textarea id="otherField" type="text" class="hidden w-full mt-8 pt-3 lg:pb-0 pb-2 leading-[20px] lg:text-[20px] lg:placeholder:text-[20px]
-         placeholder:text-[16px] text-[16px] font-[400] text-center
-               border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
-               placeholder="Please describe other tasks you can assist with"></textarea>
-     
-
       <!-- BUTTON -->
-      <div class="lg:mt-16  mx-auto relative flex items-center justify-center">
-        
+      <div class="lg:mt-16  mx-auto relative flex items-center gap-8 justify-center">
+ <a href="./guest-survey-page-1.html" class="lg:flex hidden"><img src="./assets/images/back-button.png" alt="back-button" class="w-auto lg:mt-6 hover:opacity-70 duration-300"></a>
 
-         <button id="continueBtn" class="cursor-not-allowed duration-300 opacity-30  lg:text-[24px] text-[16px] font-[500] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.10),_0_4px_6px_-4px_rgba(0,0,0,0.10)] lg:w-[560px] w-[85%] mx-auto flex items-center justify-center lg:mx-0 lg:mt-0 mt-10 bg-[#BE5103]  text-white  px-4 py-3 rounded-full ">
-          Continue
+
+         <button id="submitBtn" class="cursor-not-allowed duration-300 opacity-30  lg:text-[24px] text-[16px] font-[500] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.10),_0_4px_6px_-4px_rgba(0,0,0,0.10)] lg:w-[450px] w-[85%] mx-auto flex items-center justify-center lg:mx-0 lg:mt-0 mt-10 bg-[#BE5103]  text-white  px-4 py-3 rounded-full ">
+          Submit
           
         </button>
       </div>
@@ -330,10 +294,101 @@ Study Situation?</label>
 </footer>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const submitBtn = document.getElementById("submitBtn");
+  if (!submitBtn) return;
+
+  // Function to check if all form requirements are met
+  function checkFormValidity() {
+    // Check all toggle switches - they should all be "yes"
+    const toggleInputs = document.querySelectorAll('input[name="toggle_value"]');
+    let allTogglesYes = true;
+    
+    toggleInputs.forEach(input => {
+      if (input.value !== 'yes') {
+        allTogglesYes = false;
+      }
+    });
+
+    // Check all input fields are filled
+    const zipCode = document.getElementById("zipCodeInput");
+    const firstName = document.getElementById("firstNameInput");
+    const email = document.getElementById("emailInput");
+
+    const allInputsFilled = 
+      zipCode && zipCode.value.trim() !== '' &&
+      firstName && firstName.value.trim() !== '' &&
+      email && email.value.trim() !== '';
+
+    // Enable button if all conditions are met
+    if (allTogglesYes && allInputsFilled) {
+      submitBtn.classList.remove("opacity-30", "cursor-not-allowed");
+      submitBtn.classList.add("opacity-100", "cursor-pointer");
+    } else {
+      submitBtn.classList.remove("opacity-100", "cursor-pointer");
+      submitBtn.classList.add("opacity-30", "cursor-not-allowed");
+    }
+  }
+
+  // Listen for clicks on toggle containers to check after Alpine updates
+  document.querySelectorAll('[x-data*="on"]').forEach(toggleContainer => {
+    toggleContainer.addEventListener('click', () => {
+      // Wait for Alpine.js to update the hidden input
+      setTimeout(checkFormValidity, 100);
+    });
+  });
+  
+  // Use MutationObserver to watch for changes in hidden input values
+  const toggleInputs = document.querySelectorAll('input[name="toggle_value"]');
+  toggleInputs.forEach(input => {
+    const observer = new MutationObserver(() => {
+      checkFormValidity();
+    });
+    
+    // Observe the input element for attribute changes (value changes)
+    observer.observe(input, {
+      attributes: true,
+      attributeFilter: ['value']
+    });
+  });
+
+  // Listen for input field changes
+  const zipCode = document.getElementById("zipCodeInput");
+  const firstName = document.getElementById("firstNameInput");
+  const email = document.getElementById("emailInput");
+
+  if (zipCode) zipCode.addEventListener('input', checkFormValidity);
+  if (zipCode) zipCode.addEventListener('change', checkFormValidity);
+  if (firstName) firstName.addEventListener('input', checkFormValidity);
+  if (firstName) firstName.addEventListener('change', checkFormValidity);
+  if (email) email.addEventListener('input', checkFormValidity);
+  if (email) email.addEventListener('change', checkFormValidity);
+
+  // Initial check after DOM is ready (wait for Alpine.js to initialize)
+  setTimeout(checkFormValidity, 200);
+  
+  // Also check periodically to catch Alpine.js updates
+  setInterval(checkFormValidity, 500);
+  
+  // Handle submit button click - only navigate when active
+  submitBtn.addEventListener("click", (e) => {
+    // Check if button is active (not disabled)
+    if (submitBtn.classList.contains("opacity-30") || submitBtn.classList.contains("cursor-not-allowed")) {
+      e.preventDefault();
+      return; // Don't navigate if button is inactive
+    }
+    
+    // Button is active, navigate to next page
+    window.location.href = "guest-pricing-page.html";
+  });
+});
+</script>
 
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 
 </body>
