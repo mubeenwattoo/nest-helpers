@@ -70,7 +70,7 @@
     <div>
       <div class="flex flex-col lg:gap-10 gap-6">
 <div class="flex items-center gap-6  w-full">
-<div x-data="{ on: false }" class="select-none cursor-pointer">
+<div x-data="{ on: false }" class="select-none cursor-pointer" data-toggle-id="pets-children">
   <div 
     @click="on = !on"
     class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
@@ -93,7 +93,7 @@
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="toggle_value" data-toggle="pets-children" :value="on ? 'yes' : 'no'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -101,7 +101,7 @@
   </span>
 </div>
 <div class="flex items-center gap-6  w-full">
-<div x-data="{ on: false }" class="select-none cursor-pointer">
+<div x-data="{ on: false }" class="select-none cursor-pointer" data-toggle-id="additional-pay">
   <div 
     @click="on = !on"
     class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
@@ -124,15 +124,15 @@
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="toggle_value" data-toggle="additional-pay" :value="on ? 'yes' : 'no'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
-    You’re expected to contribute up to 10 hours of household assistance per week. Would you be interested in receiving additional hourly pay to provide assistance beyond 10 hours?
+    You're expected to contribute up to 10 hours of household assistance per week. Would you be interested in receiving additional hourly pay to provide assistance beyond 10 hours?
   </span>
 </div>
 <div class="flex items-center gap-6  w-full">
-<div x-data="{ on: false }" class="select-none cursor-pointer">
+<div x-data="{ on: false }" class="select-none cursor-pointer" data-toggle-id="owns-car">
   <div 
     @click="on = !on"
     class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
@@ -155,7 +155,7 @@
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="toggle_value" data-toggle="owns-car" :value="on ? 'yes' : 'no'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -163,7 +163,7 @@ Do you own a car?
 </span>
 </div>
 <div class="flex items-center gap-6  w-full">
-<div x-data="{ on: false }" class="select-none cursor-pointer">
+<div x-data="{ on: false }" class="select-none cursor-pointer" data-toggle-id="has-references">
   <div 
     @click="on = !on"
     class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
@@ -186,7 +186,7 @@ Do you own a car?
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="toggle_value" data-toggle="has-references" :value="on ? 'yes' : 'no'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -194,7 +194,7 @@ Do you have references that would vouch for you as a reliable and competent help
 </span>
 </div>
 <div class="flex items-center gap-6  w-full">
-<div x-data="{ on: false }" class="select-none cursor-pointer">
+<div x-data="{ on: false }" class="select-none cursor-pointer" data-toggle-id="has-degree">
   <div 
     @click="on = !on"
     class="relative lg:w-[90px] w-[85px] h-[34px] flex items-center rounded-full border-[2px] transition-all duration-300"
@@ -217,7 +217,7 @@ Do you have references that would vouch for you as a reliable and competent help
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="toggle_value" data-toggle="has-degree" :value="on ? 'yes' : 'no'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -246,7 +246,7 @@ Your name and email
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
                placeholder="First Name">
-               <input id="emailInput" type="email" class=" lg:w-[216px] lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+               <input id="emailInput" type="email" required class=" lg:w-[216px] lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
                placeholder="Email">
@@ -361,16 +361,87 @@ document.addEventListener("DOMContentLoaded", () => {
   // Also check periodically to catch Alpine.js updates
   setInterval(checkFormValidity, 500);
   
+  // Email validation on input
+  const emailInput = document.getElementById("emailInput");
+  if (emailInput) {
+    emailInput.addEventListener('blur', () => {
+      if (typeof validateEmail === 'function') {
+        const validation = validateEmail(emailInput.value.trim());
+        if (!validation.valid) {
+          emailInput.style.borderColor = '#BE5103';
+          emailInput.setCustomValidity(validation.message);
+          emailInput.reportValidity();
+        } else {
+          emailInput.style.borderColor = '';
+          emailInput.setCustomValidity('');
+        }
+      }
+      checkFormValidity();
+    });
+    
+    emailInput.addEventListener('input', () => {
+      emailInput.setCustomValidity('');
+      emailInput.style.borderColor = '';
+      checkFormValidity();
+    });
+  }
+  
   // Handle submit button click - only navigate when active
-  submitBtn.addEventListener("click", (e) => {
+  submitBtn.addEventListener("click", async (e) => {
     // Check if button is active (not disabled)
     if (submitBtn.classList.contains("opacity-30") || submitBtn.classList.contains("cursor-not-allowed")) {
       e.preventDefault();
       return; // Don't navigate if button is inactive
     }
     
-    // Button is active, navigate to next page
-    window.location.href = "guest-pricing-page.html";
+    // Validate email before submitting
+    if (typeof validateEmail === 'function') {
+      const email = document.getElementById("emailInput")?.value.trim() || "";
+      const emailValidation = validateEmail(email);
+      if (!emailValidation.valid) {
+        alert(emailValidation.message);
+        emailInput?.focus();
+        return;
+      }
+    }
+    
+    // Prevent multiple submissions
+    if (submitBtn.disabled) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+    
+    try {
+      // Submit ONLY page 7 data (8 columns: 5 toggles + zip + name + email)
+      // Does NOT include page 1 data
+      if (typeof submitPage7Data === 'function') {
+        const result = await submitPage7Data();
+        
+        if (result.success) {
+          // Show success message briefly
+          submitBtn.textContent = result.method === 'googlesheets' ? "Submitted!" : "Downloaded!";
+          submitBtn.style.backgroundColor = "#5B7B5A";
+          
+          // Wait briefly before navigating (reduced to 800ms for faster response)
+          setTimeout(() => {
+            // Navigate to next page
+            window.location.href = "guest-pricing-page.html";
+          }, 800);
+        } else {
+          // Show error
+          submitBtn.textContent = "Error - Try Again";
+          submitBtn.disabled = false;
+          alert(result.error || "There was an error submitting your survey. Please try again.");
+        }
+      } else {
+        // Fallback if function not available
+        window.location.href = "guest-pricing-page.html";
+      }
+    } catch (error) {
+      console.error("Error submitting survey:", error);
+      submitBtn.textContent = "Error - Try Again";
+      submitBtn.disabled = false;
+      alert("There was an error submitting your survey. Please try again.");
+    }
   });
 });
 </script>
@@ -379,6 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="./assets/js/survey-data-handler.js"></script>
 
 
 </body>

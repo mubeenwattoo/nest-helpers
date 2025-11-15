@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Function to select premium plan
-  function selectPremium() {
+  async function selectPremium() {
     resetAll();
     
     // Disable premium buttons
@@ -252,11 +252,13 @@ document.addEventListener("DOMContentLoaded", () => {
       premiumBtnDesktop.classList.add("opacity-30", "cursor-not-allowed");
       premiumBtnDesktop.classList.remove("cursor-pointer");
       premiumBtnDesktop.disabled = true;
+      premiumBtnDesktop.textContent = "Saving...";
     }
     if (premiumBtnMobile) {
       premiumBtnMobile.classList.add("opacity-30", "cursor-not-allowed");
       premiumBtnMobile.classList.remove("cursor-pointer");
       premiumBtnMobile.disabled = true;
+      premiumBtnMobile.textContent = "Saving...";
     }
 
     // Add border to premium card
@@ -266,12 +268,22 @@ document.addEventListener("DOMContentLoaded", () => {
       premiumCard.style.borderColor = "#BE5103";
     }
 
-    // Navigate to send.html
+    // Submit plan selection to Google Sheets (fire and forget for speed)
+    try {
+      if (typeof submitPlanSelection === 'function') {
+        submitPlanSelection('Premium'); // Don't await - fire and forget
+        console.log('Premium plan selected and saved');
+      }
+    } catch (error) {
+      console.error('Error saving plan selection:', error);
+    }
+
+    // Navigate immediately (plan saves in background)
     window.location.href = "send.html";
   }
 
   // Function to select basic plan
-  function selectBasic() {
+  async function selectBasic() {
     resetAll();
     
     // Disable basic buttons
@@ -279,11 +291,13 @@ document.addEventListener("DOMContentLoaded", () => {
       basicBtnDesktop.classList.add("opacity-30", "cursor-not-allowed");
       basicBtnDesktop.classList.remove("cursor-pointer");
       basicBtnDesktop.disabled = true;
+      basicBtnDesktop.textContent = "Saving...";
     }
     if (basicBtnMobile) {
       basicBtnMobile.classList.add("opacity-30", "cursor-not-allowed");
       basicBtnMobile.classList.remove("cursor-pointer");
       basicBtnMobile.disabled = true;
+      basicBtnMobile.textContent = "Saving...";
     }
 
     // Add border to basic card
@@ -293,7 +307,17 @@ document.addEventListener("DOMContentLoaded", () => {
       basicCard.style.borderColor = "#BE5103";
     }
 
-    // Navigate to send.html
+    // Submit plan selection to Google Sheets (fire and forget for speed)
+    try {
+      if (typeof submitPlanSelection === 'function') {
+        submitPlanSelection('Basic'); // Don't await - fire and forget
+        console.log('Basic plan selected and saved');
+      }
+    } catch (error) {
+      console.error('Error saving plan selection:', error);
+    }
+
+    // Navigate immediately (plan saves in background)
     window.location.href = "send.html";
   }
 
@@ -319,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
+<script src="./assets/js/survey-data-handler.js"></script>
 
 </body>
 

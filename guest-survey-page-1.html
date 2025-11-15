@@ -473,24 +473,111 @@ otherField.classList.toggle("hidden");
   // Initial check after DOM is ready
   setTimeout(checkFormValidity, 100);
   
+  // Function to collect all form data from page 1
+  function collectPage1Data() {
+    const dropdowns = document.querySelectorAll(".dropdown");
+    const allPills = Array.from(document.querySelectorAll("[data-pill]"));
+    const locationPills = allPills.slice(0, 2);
+    const helpPills = allPills.slice(2);
+    
+    // Get dropdown values
+    const duration = dropdowns[0]?.querySelector(".dropdown-value")?.textContent.trim() || "";
+    const workStudy = dropdowns[1]?.querySelector(".dropdown-value")?.textContent.trim() || "";
+    const age = dropdowns[2]?.querySelector(".dropdown-value")?.textContent.trim() || "";
+    const gender = dropdowns[3]?.querySelector(".dropdown-value")?.textContent.trim() || "";
+    
+    // Get location preferences
+    const locationPreferences = [];
+    locationPills.forEach((pill, index) => {
+      if (pill.classList.contains("bg-[#675F57]")) {
+        const text = pill.textContent.trim();
+        locationPreferences.push(text);
+        // If "I am interested in relocating" is selected, get the text field value
+        if (text.includes("relocating")) {
+          const relocateField = document.getElementById("relocateField");
+          if (relocateField && !relocateField.classList.contains("hidden") && relocateField.value.trim()) {
+            locationPreferences.push(`Relocation details: ${relocateField.value.trim()}`);
+          }
+        }
+      }
+    });
+    
+    // Get areas they can help with
+    const helpAreas = [];
+    helpPills.forEach((pill) => {
+      if (pill.classList.contains("bg-[#675F57]")) {
+        const text = pill.textContent.trim();
+        if (text !== "Other") {
+          helpAreas.push(text);
+        } else {
+          // If "Other" is selected, get the textarea value
+          const otherField = document.getElementById("otherField");
+          if (otherField && !otherField.classList.contains("hidden") && otherField.value.trim()) {
+            helpAreas.push(`Other: ${otherField.value.trim()}`);
+          }
+        }
+      }
+    });
+    
+    return {
+      duration: duration !== "Select" ? duration : "",
+      workStudy: workStudy !== "Select" ? workStudy : "",
+      age: age !== "Age" ? age : "",
+      gender: gender !== "Gender" ? gender : "",
+      locationPreferences: locationPreferences.join("; "),
+      helpAreas: helpAreas.join("; ")
+    };
+  }
+  
   // Handle continue button click - only navigate when active
   const continueBtn = document.getElementById("continueBtn");
-  continueBtn.addEventListener("click", (e) => {
+  continueBtn.addEventListener("click", async (e) => {
     // Check if button is active (not disabled)
     if (continueBtn.classList.contains("opacity-30") || continueBtn.classList.contains("cursor-not-allowed")) {
       e.preventDefault();
       return; // Don't navigate if button is inactive
     }
     
-    // Button is active, navigate to next page
-    window.location.href = "guest-survey-page-7.html";
+    // Prevent multiple clicks
+    if (continueBtn.disabled) return;
+    continueBtn.disabled = true;
+    const originalText = continueBtn.textContent;
+    continueBtn.textContent = "Saving...";
+    
+    try {
+      // Collect page 1 data
+      const page1Data = collectPage1Data();
+      console.log('Collected page 1 data:', page1Data);
+      
+      // Save to localStorage (for page 7 if needed)
+      localStorage.setItem("surveyPage1Data", JSON.stringify(page1Data));
+      
+      // Submit to Google Sheets immediately
+      if (typeof submitPage1Data === 'function') {
+        const result = await submitPage1Data(page1Data);
+        console.log('Submission result:', result);
+        if (result.success) {
+          continueBtn.textContent = "Saved!";
+          setTimeout(() => {
+            window.location.href = "guest-survey-page-7.html";
+          }, 300);
+        } else {
+          // Still navigate even if submission fails
+          window.location.href = "guest-survey-page-7.html";
+        }
+      } else {
+        // If function not available, just navigate
+        window.location.href = "guest-survey-page-7.html";
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
+      // Still navigate even if there's an error
+      window.location.href = "guest-survey-page-7.html";
+    }
   });
 </script>
 
-
-
-
-
+<script src="./assets/js/survey-data-handler.js"></script>
 
 </body>
 
