@@ -229,10 +229,10 @@ Do you have a college degree?
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
 Current zip code where you live
 </span>
- <input id="zipCodeInput" type="number" class=" lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+ <input id="zipCodeInput" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" class=" lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
-               placeholder="Zip Code">
+               placeholder="5 digit US zip code">
 
 </div>
 
@@ -301,28 +301,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to check if all form requirements are met
   function checkFormValidity() {
-    // Check all toggle switches - they should all be "yes"
-    const toggleInputs = document.querySelectorAll('input[name="toggle_value"]');
-    let allTogglesYes = true;
-    
-    toggleInputs.forEach(input => {
-      if (input.value !== 'yes') {
-        allTogglesYes = false;
-      }
-    });
-
     // Check all input fields are filled
     const zipCode = document.getElementById("zipCodeInput");
     const firstName = document.getElementById("firstNameInput");
     const email = document.getElementById("emailInput");
 
+    // Validate zip code is exactly 5 digits
+    const zipCodeValid = zipCode && zipCode.value.trim() !== '' && /^\d{5}$/.test(zipCode.value.trim());
+
     const allInputsFilled = 
-      zipCode && zipCode.value.trim() !== '' &&
+      zipCodeValid &&
       firstName && firstName.value.trim() !== '' &&
       email && email.value.trim() !== '';
 
-    // Enable button if all conditions are met
-    if (allTogglesYes && allInputsFilled) {
+    // Enable button if all input conditions are met (toggles are now optional)
+    if (allInputsFilled) {
       submitBtn.classList.remove("opacity-30", "cursor-not-allowed");
       submitBtn.classList.add("opacity-100", "cursor-pointer");
     } else {
@@ -331,35 +324,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Listen for clicks on toggle containers to check after Alpine updates
-  document.querySelectorAll('[x-data*="on"]').forEach(toggleContainer => {
-    toggleContainer.addEventListener('click', () => {
-      // Wait for Alpine.js to update the hidden input
-      setTimeout(checkFormValidity, 100);
-    });
-  });
-  
-  // Use MutationObserver to watch for changes in hidden input values
-  const toggleInputs = document.querySelectorAll('input[name="toggle_value"]');
-  toggleInputs.forEach(input => {
-    const observer = new MutationObserver(() => {
+  // Zip code validation - only allow digits and limit to 5
+  const zipCode = document.getElementById("zipCodeInput");
+  if (zipCode) {
+    zipCode.addEventListener('input', (e) => {
+      // Remove any non-digit characters
+      e.target.value = e.target.value.replace(/\D/g, '');
+      // Limit to 5 digits
+      if (e.target.value.length > 5) {
+        e.target.value = e.target.value.slice(0, 5);
+      }
       checkFormValidity();
     });
     
-    // Observe the input element for attribute changes (value changes)
-    observer.observe(input, {
-      attributes: true,
-      attributeFilter: ['value']
+    zipCode.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+      const digitsOnly = pastedText.replace(/\D/g, '').slice(0, 5);
+      e.target.value = digitsOnly;
+      checkFormValidity();
     });
-  });
+  }
 
   // Listen for input field changes
-  const zipCode = document.getElementById("zipCodeInput");
   const firstName = document.getElementById("firstNameInput");
   const email = document.getElementById("emailInput");
 
-  if (zipCode) zipCode.addEventListener('input', checkFormValidity);
-  if (zipCode) zipCode.addEventListener('change', checkFormValidity);
   if (firstName) firstName.addEventListener('input', checkFormValidity);
   if (firstName) firstName.addEventListener('change', checkFormValidity);
   if (email) email.addEventListener('input', checkFormValidity);
