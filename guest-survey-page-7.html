@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
- 
 
 <title>Guest Survey Page 7</title>
 </head>
@@ -68,6 +67,7 @@
     </div>
 
     <div>
+      <form id="surveyForm7" action="https://sheetdb.io/api/v1/7gh9xr3tsluqb?sheet=Sheet1" method="post">
       <div class="flex flex-col lg:gap-10 gap-6">
 <div class="flex items-center gap-6  w-full">
 <div x-data="{ on: false }" class="select-none cursor-pointer" data-toggle-id="pets-children">
@@ -93,7 +93,7 @@
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" data-toggle="pets-children" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="data[Pets]" data-toggle="pets-children" :value="on ? 'Yes' : 'No'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -124,7 +124,7 @@
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" data-toggle="additional-pay" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="data[Contribute]" data-toggle="additional-pay" :value="on ? 'Yes' : 'No'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -155,7 +155,7 @@
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" data-toggle="owns-car" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="data[Car]" data-toggle="owns-car" :value="on ? 'Yes' : 'No'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -186,7 +186,7 @@ Do you own a car?
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" data-toggle="has-references" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="data[Reference]" data-toggle="has-references" :value="on ? 'Yes' : 'No'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -217,7 +217,7 @@ Do you have references that would vouch for you as a reliable and competent help
         x-text="on ? 'Yes' : 'No'"
       ></span>
 
-      <input type="hidden" name="toggle_value" data-toggle="has-degree" :value="on ? 'yes' : 'no'">
+      <input type="hidden" name="data[Degree]" data-toggle="has-degree" :value="on ? 'Yes' : 'No'">
   </div>
 </div>
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
@@ -229,7 +229,7 @@ Do you have a college degree?
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
 Current zip code where you live
 </span>
- <input id="zipCodeInput" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" class=" lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+ <input id="zipCodeInput" name="data[Zip]" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" class=" lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
                placeholder="5 digit US zip code">
@@ -242,11 +242,11 @@ Current zip code where you live
 Your name and email
 </span>
 <div class="flex items-center lg:flex-row flex-col lg:justify-between lg:gap-6">
- <input id="firstNameInput" type="text" class=" lg:mt-0 mt-4 lg:w-[200px] p-3 text-[20px] lg:placeholder:text-[20px] 
+ <input id="firstNameInput" name="data[Name]" type="text" class=" lg:mt-0 mt-4 lg:w-[200px] p-3 text-[20px] lg:placeholder:text-[20px] 
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
                placeholder="First Name">
-               <input id="emailInput" type="email" required class=" lg:w-[216px] lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+               <input id="emailInput" name="data[Email]" type="email" required class=" lg:w-[216px] lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
                placeholder="Email">
@@ -266,11 +266,10 @@ Your name and email
  <a href="./guest-survey-page-1.html" class="lg:flex hidden"><img src="./assets/images/back-button.png" alt="back-button" class="w-auto lg:mt-6 hover:opacity-70 duration-300"></a>
 
 
-         <button id="submitBtn" class="cursor-not-allowed duration-300 opacity-30  lg:text-[24px] text-[16px] font-[500] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.10),_0_4px_6px_-4px_rgba(0,0,0,0.10)] lg:w-[450px] w-[85%] mx-auto flex items-center justify-center lg:mx-0 lg:mt-0 mt-10 bg-[#BE5103]  text-white  px-4 py-3 rounded-full ">
-          Submit
+         <input type="submit" id="submitBtn" value="Submit" class="cursor-not-allowed duration-300 opacity-30  lg:text-[24px] text-[16px] font-[500] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.10),_0_4px_6px_-4px_rgba(0,0,0,0.10)] lg:w-[450px] w-[85%] mx-auto flex items-center justify-center lg:mx-0 lg:mt-0 mt-10 bg-[#BE5103]  text-white  px-4 py-3 rounded-full ">
           
-        </button>
       </div>
+      </form>
 
     </div>
   </div>
@@ -298,6 +297,7 @@ Your name and email
 document.addEventListener("DOMContentLoaded", () => {
   const submitBtn = document.getElementById("submitBtn");
   if (!submitBtn) return;
+
 
   // Function to check if all form requirements are met
   function checkFormValidity() {
@@ -350,10 +350,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const firstName = document.getElementById("firstNameInput");
   const email = document.getElementById("emailInput");
 
-  if (firstName) firstName.addEventListener('input', checkFormValidity);
-  if (firstName) firstName.addEventListener('change', checkFormValidity);
-  if (email) email.addEventListener('input', checkFormValidity);
-  if (email) email.addEventListener('change', checkFormValidity);
+  if (firstName) {
+    firstName.addEventListener('input', checkFormValidity);
+    firstName.addEventListener('change', checkFormValidity);
+  }
+  
+  if (email) {
+    email.addEventListener('input', checkFormValidity);
+    email.addEventListener('change', checkFormValidity);
+  }
 
   // Initial check after DOM is ready (wait for Alpine.js to initialize)
   setTimeout(checkFormValidity, 200);
@@ -365,16 +370,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("emailInput");
   if (emailInput) {
     emailInput.addEventListener('blur', () => {
-      if (typeof validateEmail === 'function') {
-        const validation = validateEmail(emailInput.value.trim());
-        if (!validation.valid) {
-          emailInput.style.borderColor = '#BE5103';
-          emailInput.setCustomValidity(validation.message);
-          emailInput.reportValidity();
-        } else {
-          emailInput.style.borderColor = '';
-          emailInput.setCustomValidity('');
-        }
+      const email = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email && !emailRegex.test(email)) {
+        emailInput.style.borderColor = '#BE5103';
+        emailInput.setCustomValidity('Please enter a valid email address');
+        emailInput.reportValidity();
+      } else {
+        emailInput.style.borderColor = '';
+        emailInput.setCustomValidity('');
       }
       checkFormValidity();
     });
@@ -386,62 +390,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
-  // Handle submit button click - only navigate when active
-  submitBtn.addEventListener("click", async (e) => {
+  // Fix degree toggle - sync all toggle values before form submission
+  // This ensures Alpine.js values are properly captured
+  function syncAllToggleValues() {
+    document.querySelectorAll('[x-data*="on"]').forEach(toggleContainer => {
+      const hiddenInput = toggleContainer.querySelector('input[type="hidden"]');
+      if (hiddenInput) {
+        // Method 1: Try to get Alpine.js data directly
+        try {
+          if (window.Alpine && Alpine.$data) {
+            const alpineData = Alpine.$data(toggleContainer);
+            if (alpineData && typeof alpineData.on !== 'undefined') {
+              hiddenInput.value = alpineData.on ? 'Yes' : 'No';
+              return;
+            }
+          }
+        } catch (e) {
+          // Fall through to visual check
+        }
+        
+        // Method 2: Check the toggle state visually (reliable fallback)
+        const toggleDiv = toggleContainer.querySelector('div[class*="bg-"]');
+        if (toggleDiv) {
+          const isOn = toggleDiv.classList.contains('bg-[#675F57]');
+          hiddenInput.value = isOn ? 'Yes' : 'No';
+        }
+      }
+    });
+  }
+
+  // Handle form submission
+  const form = document.getElementById("surveyForm7");
+  form.addEventListener("submit", (e) => {
     // Check if button is active (not disabled)
     if (submitBtn.classList.contains("opacity-30") || submitBtn.classList.contains("cursor-not-allowed")) {
       e.preventDefault();
-      return; // Don't navigate if button is inactive
+      return false; // Don't submit if button is inactive
     }
     
     // Validate email before submitting
-    if (typeof validateEmail === 'function') {
-      const email = document.getElementById("emailInput")?.value.trim() || "";
-      const emailValidation = validateEmail(email);
-      if (!emailValidation.valid) {
-        alert(emailValidation.message);
-        emailInput?.focus();
-        return;
-      }
+    const email = document.getElementById("emailInput")?.value.trim() || "";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      e.preventDefault();
+      alert('Please enter a valid email address');
+      emailInput?.focus();
+      return false;
     }
+    
+    // Prevent default form submission
+    e.preventDefault();
     
     // Prevent multiple submissions
-    if (submitBtn.disabled) return;
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting...";
-    
-    try {
-      // Submit ONLY page 7 data (8 columns: 5 toggles + zip + name + email)
-      // Does NOT include page 1 data
-      if (typeof submitPage7Data === 'function') {
-        const result = await submitPage7Data();
-        
-        if (result.success) {
-          // Show success message briefly
-          submitBtn.textContent = result.method === 'googlesheets' ? "Submitted!" : "Downloaded!";
-          submitBtn.style.backgroundColor = "#5B7B5A";
-          
-          // Wait briefly before navigating (reduced to 800ms for faster response)
-          setTimeout(() => {
-            // Navigate to next page
-            window.location.href = "guest-pricing-page.html";
-          }, 800);
-        } else {
-          // Show error
-          submitBtn.textContent = "Error - Try Again";
-          submitBtn.disabled = false;
-          alert(result.error || "There was an error submitting your survey. Please try again.");
-        }
-      } else {
-        // Fallback if function not available
-        window.location.href = "guest-pricing-page.html";
-      }
-    } catch (error) {
-      console.error("Error submitting survey:", error);
-      submitBtn.textContent = "Error - Try Again";
-      submitBtn.disabled = false;
-      alert("There was an error submitting your survey. Please try again.");
+    if (submitBtn.disabled) {
+      e.preventDefault();
+      return false;
     }
+    submitBtn.disabled = true;
+    
+    // Sync all toggle values before collecting data (fixes degree toggle issue)
+    syncAllToggleValues();
+    
+    // Collect form data and merge with page 1 data
+    const formData = new FormData(form);
+    const page7Data = {};
+    
+    // Convert FormData to object
+    for (const [key, value] of formData.entries()) {
+      if (key.startsWith('data[')) {
+        page7Data[key] = value;
+      }
+    }
+    
+    // Get page 1 data from localStorage and merge
+    const existingData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+    const allData = { ...existingData, ...page7Data };
+    
+    // Store merged data in localStorage
+    localStorage.setItem('surveyData', JSON.stringify(allData));
+
+    // Immediately redirect - zero delay
+    window.location.href = "guest-pricing-page.html";
   });
 });
 </script>
@@ -450,7 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<script src="./assets/js/survey-data-handler.js"></script>
 
 
 </body>

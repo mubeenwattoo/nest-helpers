@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
- 
 
 <title>Guest Pricing pAGE</title>
 </head>
@@ -243,8 +242,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Function to submit all collected data to Google Sheet
+  function submitAllData(planType) {
+    // Get all collected data from localStorage
+    const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+    
+    // Add plan selection
+    allData['data[Plan]'] = planType;
+    
+    // Convert to FormData
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(allData)) {
+      formData.append(key, value);
+    }
+    
+    // Fire-and-forget submission - don't wait for response
+    // This makes the redirect instant with zero delay
+    fetch('https://sheetdb.io/api/v1/7gh9xr3tsluqb?sheet=Sheet1', {
+      method: 'POST',
+      body: formData,
+      keepalive: true // Ensures request completes even if page unloads
+    }).catch(() => {
+      // Silently handle errors - data will submit in background
+    });
+    
+    // Clear localStorage after submission
+    localStorage.removeItem('surveyData');
+  }
+
   // Function to select premium plan
-  async function selectPremium() {
+  function selectPremium() {
     resetAll();
     
     // Disable premium buttons
@@ -252,13 +279,11 @@ document.addEventListener("DOMContentLoaded", () => {
       premiumBtnDesktop.classList.add("opacity-30", "cursor-not-allowed");
       premiumBtnDesktop.classList.remove("cursor-pointer");
       premiumBtnDesktop.disabled = true;
-      premiumBtnDesktop.textContent = "Saving...";
     }
     if (premiumBtnMobile) {
       premiumBtnMobile.classList.add("opacity-30", "cursor-not-allowed");
       premiumBtnMobile.classList.remove("cursor-pointer");
       premiumBtnMobile.disabled = true;
-      premiumBtnMobile.textContent = "Saving...";
     }
 
     // Add border to premium card
@@ -268,22 +293,15 @@ document.addEventListener("DOMContentLoaded", () => {
       premiumCard.style.borderColor = "#BE5103";
     }
 
-    // Submit plan selection to Google Sheets (fire and forget for speed)
-    try {
-      if (typeof submitPlanSelection === 'function') {
-        submitPlanSelection('Premium'); // Don't await - fire and forget
-        console.log('Premium plan selected and saved');
-      }
-    } catch (error) {
-      console.error('Error saving plan selection:', error);
-    }
+    // Submit all collected data (including plan) to Google Sheet
+    submitAllData("Premium");
 
-    // Navigate immediately (plan saves in background)
+    // Immediately navigate to next page - zero delay
     window.location.href = "send.html";
   }
 
   // Function to select basic plan
-  async function selectBasic() {
+  function selectBasic() {
     resetAll();
     
     // Disable basic buttons
@@ -291,13 +309,11 @@ document.addEventListener("DOMContentLoaded", () => {
       basicBtnDesktop.classList.add("opacity-30", "cursor-not-allowed");
       basicBtnDesktop.classList.remove("cursor-pointer");
       basicBtnDesktop.disabled = true;
-      basicBtnDesktop.textContent = "Saving...";
     }
     if (basicBtnMobile) {
       basicBtnMobile.classList.add("opacity-30", "cursor-not-allowed");
       basicBtnMobile.classList.remove("cursor-pointer");
       basicBtnMobile.disabled = true;
-      basicBtnMobile.textContent = "Saving...";
     }
 
     // Add border to basic card
@@ -307,17 +323,10 @@ document.addEventListener("DOMContentLoaded", () => {
       basicCard.style.borderColor = "#BE5103";
     }
 
-    // Submit plan selection to Google Sheets (fire and forget for speed)
-    try {
-      if (typeof submitPlanSelection === 'function') {
-        submitPlanSelection('Basic'); // Don't await - fire and forget
-        console.log('Basic plan selected and saved');
-      }
-    } catch (error) {
-      console.error('Error saving plan selection:', error);
-    }
+    // Submit all collected data (including plan) to Google Sheet
+    submitAllData("Basic");
 
-    // Navigate immediately (plan saves in background)
+    // Immediately navigate to next page - zero delay
     window.location.href = "send.html";
   }
 
@@ -343,7 +352,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<script src="./assets/js/survey-data-handler.js"></script>
 
 </body>
 
