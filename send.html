@@ -30,6 +30,105 @@
 
 </section>
 
+<!-- 
+  ===================================================================
+  ZAPIER INTEGRATION
+  ===================================================================
+  
+  This script automatically sends candidate email and name to Zapier
+  when the user reaches the thank you page after completing the survey.
+  
+  The data is sent to your Zapier webhook, which can then trigger
+  actions like sending interview emails, creating interview links, etc.
+  
+  ===================================================================
+-->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ============================================================
+  // CONFIGURATION: Your Zapier Webhook URL
+  // ============================================================
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25392582/u8080bk/';
+  // ============================================================
+  
+  // Retrieve email and name from localStorage (stored by guest-pricing-page.html)
+  const zapierData = localStorage.getItem('hireflixData');
+  
+  if (zapierData) {
+    try {
+      const { email, name } = JSON.parse(zapierData);
+      
+      // Only proceed if both email and name are available
+      if (email && name) {
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          console.warn('Invalid email format, skipping Zapier integration:', email);
+          localStorage.removeItem('hireflixData');
+          return;
+        }
+        
+        // Prepare data to send
+        const dataToSend = {
+          email: email.trim(),
+          name: name.trim()
+        };
+        
+        // Log what we're sending (for testing/debugging)
+        console.log('📤 Sending data to Zapier:', dataToSend);
+        console.log('🔗 Webhook URL:', ZAPIER_WEBHOOK_URL);
+        
+        // Convert data to URL-encoded format (avoids CORS preflight issues)
+        // Zapier webhooks accept form data and will parse it correctly
+        const formData = new URLSearchParams();
+        formData.append('email', email.trim());
+        formData.append('name', name.trim());
+        
+        // Send data to Zapier webhook (fire-and-forget)
+        // Using form data instead of JSON to avoid CORS preflight issues
+        fetch(ZAPIER_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: formData.toString(),
+          keepalive: true // Ensures request completes even if page unloads
+        })
+        .then(async (response) => {
+          if (response.ok) {
+            const responseData = await response.text().catch(() => '');
+            console.log('✅ Data successfully sent to Zapier!');
+            console.log('📥 Zapier Response:', responseData);
+            console.log('📋 Sent Data:', dataToSend);
+          } else {
+            console.warn('⚠️ Zapier webhook returned non-OK status:', response.status);
+            console.warn('📋 Attempted to send:', dataToSend);
+          }
+        })
+        .catch((error) => {
+          // Log errors for debugging
+          console.error('❌ Zapier integration error:', error);
+          console.error('📋 Failed to send:', dataToSend);
+        });
+        
+        // Clean up localStorage after sending (success or failure)
+        localStorage.removeItem('hireflixData');
+      } else {
+        console.warn('Missing email or name data for Zapier integration');
+        localStorage.removeItem('hireflixData');
+      }
+    } catch (error) {
+      console.error('Error parsing zapier data from localStorage:', error);
+      localStorage.removeItem('hireflixData');
+    }
+  } else {
+    // No zapier data found - this is normal if user navigated directly to this page
+    // or if data was already sent/cleared
+    console.debug('No zapier data found in localStorage');
+  }
+});
+</script>
+
 
 
 

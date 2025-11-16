@@ -247,6 +247,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get all collected data from localStorage
     const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
     
+    // Extract email and name for Hireflix integration before clearing
+    const email = allData['data[Email]'] || '';
+    const name = allData['data[Name]'] || '';
+    
+    // Store email and name separately for send.html (Hireflix integration)
+    if (email && name) {
+      localStorage.setItem('hireflixData', JSON.stringify({ email, name }));
+    }
+    
     // Add plan selection
     allData['data[Plan]'] = planType;
     
@@ -266,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Silently handle errors - data will submit in background
     });
     
-    // Clear localStorage after submission
+    // Clear survey data but keep hireflixData for send.html
     localStorage.removeItem('surveyData');
   }
 
