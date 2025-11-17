@@ -15,6 +15,7 @@
 <body class="font-[lexend]">
 
  <section class="gradient-bg pt-8  lg:px-[64px] lg:pb-[48px] pb-[24px] p-6 ">
+  <div class="max-w-[1440px] mx-auto">
 <a href="./" class="inline-flex"><img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] "></a>
 
 
@@ -229,10 +230,13 @@ Do you have a college degree?
 <span class="text-[#2D2D2D] lg:text-[20px] text-[16px] font-[400]">
 Current zip code where you live
 </span>
- <input id="zipCodeInput" name="data[Zip]" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" class=" lg:mt-0 mt-4  p-3 text-[20px] lg:placeholder:text-[20px] 
+<div class="flex flex-col lg:mt-0 mt-4 w-full lg:w-auto">
+ <input id="zipCodeInput" name="data[Zip]" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" class="p-3 text-[20px] lg:placeholder:text-[20px] 
          placeholder:text-[16px] font-[400] text-center lg:pb-2 pb-4 whitespace-normal placeholder:whitespace-normal
                border-b border-[#675F57] focus:outline-0 focus:border-[#795634] text-[#4A4A4A] placeholder-[rgba(103,95,87,0.30)]"
                placeholder="5 digit US zip code">
+ <span id="zipCodeError" class="text-red-500 text-[14px] font-[400] mt-1 text-center hidden">Please correct zip code</span>
+</div>
 
 </div>
 
@@ -272,6 +276,7 @@ Your name and email
       </form>
 
     </div>
+  </div>
   </div>
 </section>
 
@@ -326,6 +331,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Zip code validation - only allow digits and limit to 5
   const zipCode = document.getElementById("zipCodeInput");
+  const zipCodeError = document.getElementById("zipCodeError");
+  
+  function validateZipCode() {
+    const zipValue = zipCode.value.trim();
+    const isValid = /^\d{5}$/.test(zipValue);
+    
+    if (zipValue === '') {
+      // Empty - no error shown yet
+      zipCode.style.borderColor = '#675F57';
+      zipCodeError.classList.add('hidden');
+      return false;
+    } else if (!isValid) {
+      // Invalid - show error
+      zipCode.style.borderColor = '#EF4444'; // red-500
+      zipCodeError.classList.remove('hidden');
+      return false;
+    } else {
+      // Valid - hide error
+      zipCode.style.borderColor = '#675F57';
+      zipCodeError.classList.add('hidden');
+      return true;
+    }
+  }
+  
   if (zipCode) {
     zipCode.addEventListener('input', (e) => {
       // Remove any non-digit characters
@@ -334,6 +363,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target.value.length > 5) {
         e.target.value = e.target.value.slice(0, 5);
       }
+      validateZipCode();
+      checkFormValidity();
+    });
+    
+    zipCode.addEventListener('blur', () => {
+      validateZipCode();
       checkFormValidity();
     });
     
@@ -342,6 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const pastedText = (e.clipboardData || window.clipboardData).getData('text');
       const digitsOnly = pastedText.replace(/\D/g, '').slice(0, 5);
       e.target.value = digitsOnly;
+      validateZipCode();
       checkFormValidity();
     });
   }
@@ -426,6 +462,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (submitBtn.classList.contains("opacity-30") || submitBtn.classList.contains("cursor-not-allowed")) {
       e.preventDefault();
       return false; // Don't submit if button is inactive
+    }
+    
+    // Validate zip code before submitting
+    if (zipCode && !validateZipCode()) {
+      e.preventDefault();
+      zipCode.focus();
+      return false;
     }
     
     // Validate email before submitting
