@@ -435,20 +435,32 @@ document.addEventListener("DOMContentLoaded", () => {
         // Check relocate pill state (after toggle, so check if it's selected)
         const relocatePill = document.getElementById("relocateBtn");
         const isRelocateSelected = relocatePill && relocatePill.classList.contains("bg-[#675F57]");
+        const relocateText = relocateField.value.trim();
         
         // After toggle, check if this pill is now selected
         if (pill.classList.contains("bg-[#675F57]")) {
           // If both are selected, combine them
           if (isRelocateSelected) {
-            localInput.value = "Local area, Interested in relocating";
+            let baseValue = "Local area, Interested in relocating";
+            // Append relocate text if user typed something
+            if (relocateText) {
+              localInput.value = baseValue + " - " + relocateText;
+            } else {
+              localInput.value = baseValue;
+            }
           } else {
             localInput.value = "Local area";
           }
         } else {
           // This pill was just deselected
-          // If relocate is still selected, keep that value
+          // If relocate is still selected, keep that value with text
           if (isRelocateSelected) {
-            localInput.value = "Interested in relocating";
+            let baseValue = "Interested in relocating";
+            if (relocateText) {
+              localInput.value = baseValue + " - " + relocateText;
+            } else {
+              localInput.value = baseValue;
+            }
           } else {
             localInput.value = "";
           }
@@ -468,11 +480,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // After toggle, check if this pill is now selected
         if (pill.classList.contains("bg-[#675F57]")) {
-          // If both are selected, combine them
+          // Build the value with relocate text if available
+          const relocateText = relocateField.value.trim();
+          let baseValue = "Interested in relocating";
+          
           if (isLocalSelected) {
-            localInput.value = "Local area, Interested in relocating";
+            baseValue = "Local area, Interested in relocating";
+          }
+          
+          // Append the relocate text if user typed something
+          if (relocateText) {
+            localInput.value = baseValue + " - " + relocateText;
           } else {
-            localInput.value = "Interested in relocating";
+            localInput.value = baseValue;
           }
         } else {
           // This pill was just deselected - clear relocate field
@@ -490,6 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
             HELP AREAS MULTISELECT
       ---------------------------------- */
       const helpInput = document.querySelector("input[name='data[HelpArea]']");
+      const otherField = document.getElementById("otherField");
 
       if (
         val !== "I am interested in relocating" &&
@@ -501,25 +522,120 @@ document.addEventListener("DOMContentLoaded", () => {
           helpAreas = helpAreas.filter(v => v !== val);
         }
 
-        helpInput.value = helpAreas.join(", ");
+        // Build the help areas string
+        let helpAreasStr = helpAreas.join(", ");
+        
+        // If "Other" is selected and has text, append it
+        const isOtherSelected = helpAreas.includes("Other");
+        const otherText = otherField.value.trim();
+        if (isOtherSelected && otherText) {
+          // Replace "Other" with "Other - [text]", but avoid duplicates
+          if (!helpAreasStr.includes("Other - ")) {
+            helpAreasStr = helpAreasStr.replace("Other", "Other - " + otherText);
+          } else {
+            // Already has "Other - ", just update the text part
+            helpAreasStr = helpAreasStr.replace(/Other - [^,]+/, "Other - " + otherText);
+          }
+        } else if (isOtherSelected) {
+          // Other is selected but no text, make sure it's just "Other"
+          helpAreasStr = helpAreasStr.replace(/Other - [^,]+/, "Other");
+        }
+        
+        helpInput.value = helpAreasStr;
       }
 
       /* ----------------------------------
                 OTHER FIELD
       ---------------------------------- */
       if (val === "Other") {
-        document.getElementById("otherField").classList.toggle("hidden");
+        otherField.classList.toggle("hidden");
+        // Update help areas when Other is toggled
+        if (pill.classList.contains("bg-[#675F57]")) {
+          // Other was just selected, update the value
+          let helpAreasStr = helpAreas.join(", ");
+          const otherText = otherField.value.trim();
+          if (otherText) {
+            // Replace "Other" with "Other - [text]", but avoid duplicates
+            if (!helpAreasStr.includes("Other - ")) {
+              helpAreasStr = helpAreasStr.replace("Other", "Other - " + otherText);
+            } else {
+              // Already has "Other - ", just update the text part
+              helpAreasStr = helpAreasStr.replace(/Other - [^,]+/, "Other - " + otherText);
+            }
+          }
+          helpInput.value = helpAreasStr;
+        } else {
+          // Other was just deselected, remove the text part
+          helpAreas = helpAreas.filter(v => v !== "Other");
+          helpInput.value = helpAreas.join(", ");
+          otherField.value = "";
+        }
       }
 
       checkFormValidity();
     });
   });
 
-
+  /* ======================
+      UPDATE VALUES WHEN TEXT FIELDS CHANGE
+      ====================== */
+  
+  // Update Local input when relocate field changes
+  const relocateField = document.getElementById("relocateField");
+  if (relocateField) {
+    relocateField.addEventListener("input", () => {
+      const localInput = document.querySelector("input[name='data[Local]']");
+      const relocatePill = document.getElementById("relocateBtn");
+      const localPill = pills.find(p => p.textContent.trim() === "I want to stay within my local area");
+      const isRelocateSelected = relocatePill && relocatePill.classList.contains("bg-[#675F57]");
+      const isLocalSelected = localPill && localPill.classList.contains("bg-[#675F57]");
+      const relocateText = relocateField.value.trim();
+      
+      if (isRelocateSelected) {
+        let baseValue = "Interested in relocating";
+        if (isLocalSelected) {
+          baseValue = "Local area, Interested in relocating";
+        }
+        
+        if (relocateText) {
+          localInput.value = baseValue + " - " + relocateText;
+        } else {
+          localInput.value = baseValue;
+        }
+      }
+    });
+  }
+  
+  // Update HelpArea input when other field changes
+  const otherField = document.getElementById("otherField");
+  if (otherField) {
+    otherField.addEventListener("input", () => {
+      const helpInput = document.querySelector("input[name='data[HelpArea]']");
+      const isOtherSelected = helpAreas.includes("Other");
+      const otherText = otherField.value.trim();
+      
+      if (isOtherSelected) {
+        let helpAreasStr = helpAreas.join(", ");
+        if (otherText) {
+          // Replace "Other" with "Other - [text]", but avoid duplicates
+          if (!helpAreasStr.includes("Other - ")) {
+            helpAreasStr = helpAreasStr.replace("Other", "Other - " + otherText);
+          } else {
+            // Already has "Other - ", just update the text part
+            helpAreasStr = helpAreasStr.replace(/Other - [^,]+/, "Other - " + otherText);
+          }
+        } else {
+          // No text, make sure it's just "Other"
+          helpAreasStr = helpAreasStr.replace(/Other - [^,]+/, "Other");
+        }
+        helpInput.value = helpAreasStr;
+      }
+    });
+  }
 
   /* ======================
       CHECK FORM COMPLETION
-  ====================== */
+      ====================== */
   function checkFormValidity() {
     const continueBtn = document.getElementById("continueBtn");
     if (!continueBtn) return;
@@ -584,6 +700,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const page1Data = {};
     
     // Convert FormData to object and store in localStorage
+    // The relocate and other text are already combined into Local and HelpArea fields
     for (const [key, value] of formData.entries()) {
       if (key.startsWith('data[')) {
         page1Data[key] = value;
