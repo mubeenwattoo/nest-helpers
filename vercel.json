@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/helpers/:path*",
-      "destination": "https://helpers-ruddy.vercel.app/:path*"
+      "destination": "https://helpers/:path*"
     }
   ]
 }
