@@ -1325,6 +1325,11 @@
       top: calc(var(--spacing) * 6);
     }
   }
+  .xl\:top-\[17\%\] {
+    @media (width >= 80rem) {
+      top: 17%;
+    }
+  }
   .xl\:ml-32 {
     @media (width >= 80rem) {
       margin-left: calc(var(--spacing) * 32);
@@ -1333,6 +1338,11 @@
   .xl\:block {
     @media (width >= 80rem) {
       display: block;
+    }
+  }
+  .xl\:w-\[450px\] {
+    @media (width >= 80rem) {
+      width: 450px;
     }
   }
   .xl\:w-\[490px\] {
@@ -1377,7 +1387,7 @@ html, body {
   scroll-behavior: smooth;
 }
 .hero-bg {
-  background: linear-gradient(180deg, #f4efe88f 0%, #faf8f500 100%);
+  background: linear-gradient(180deg, #F4EFE8 0%, #FAF8F5 100%);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

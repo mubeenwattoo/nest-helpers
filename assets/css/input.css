@@ -7,7 +7,7 @@ body {
   scroll-behavior: smooth;
 }
 .hero-bg {
-  background: linear-gradient(180deg, #f4efe88f 0%, #faf8f500 100%);
+  background: linear-gradient(180deg, #F4EFE8 0%, #FAF8F5 100%);
              
   background-size: cover;
   background-repeat: no-repeat;
