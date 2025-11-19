@@ -1,6 +1,3 @@
-
-
-
 {
   "rewrites": [
     {
@@ -9,12 +6,6 @@
     },
     {
       "source": "/helpers/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "nesthelpers.com"
-        }
-      ],
       "destination": "https://helpers-ruddy.vercel.app/:path*"
     }
   ]
