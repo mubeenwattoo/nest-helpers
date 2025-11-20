@@ -2,6 +2,14 @@
 <html>
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6ZY1KSD55X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6ZY1KSD55X');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -272,6 +280,7 @@
   </div>
 </footer>
 
+<script src="./assets/js/survey-submit.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const premiumCard = document.getElementById("premiumCard");
@@ -471,6 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   async function submitToGoogleSheets(selectedPlan) {
+    // Use the incremental submission function to update the existing row
     let allData = {};
     const storedData = localStorage.getItem('surveyData');
     if (storedData) {
@@ -478,44 +488,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     allData.selectedPlan = selectedPlan;
-    allData.submissionTimestamp = new Date().toISOString();
-    const sheetData = {
-      timestamp: allData.submissionTimestamp || new Date().toISOString(),
-      services: (allData.services || []).join(', '),
-      duration: allData.duration || '',
-      workTime: allData.workTime || '',
-      genderPreference: allData.genderPreference || '',
-      hoursPerWeek: allData.hoursPerWeek || '',
-      foodArrangement: allData.foodArrangement || '',
-      householdMembers: allData.householdMembers || '',
-      headOfHouseholdAge: allData.headOfHouseholdAge || '',
-      bedroomCount: allData.bedroomCount || '',
-      zipCode: allData.zipCode || '',
-      address: allData.address || '',
-      firstName: allData.firstName || '',
-      email: allData.email || '',
-      selectedPlan: selectedPlan
-    };
-    const scriptTag = document.querySelector('script[data-google-script-url]');
-    const GOOGLE_SCRIPT_URL = scriptTag ? scriptTag.getAttribute('data-google-script-url') : 'YOUR_GOOGLE_APPS_SCRIPT_URL';
-    const formData = new FormData();
-    Object.keys(sheetData).forEach(key => {
-      formData.append(key, sheetData[key]);
-    });
-
-    try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        body: formData
-      });
-
-      if (response.ok) {
-        console.log('Data submitted successfully');
-      } else {
-        console.error('Error submitting data:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error submitting data:', error);
+    
+    // Submit using the incremental function (will update existing row)
+    if (typeof submitToGoogleSheetsIncremental === 'function') {
+      return await submitToGoogleSheetsIncremental(allData, 'host-pricing-page');
+    } else {
+      console.error('submitToGoogleSheetsIncremental function not available');
+      return { success: false, error: 'Submission function not loaded' };
     }
   }
   async function submitSurveyData(selectedPlan) {
@@ -538,13 +517,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Note: We no longer require email/name to submit, as data is submitted incrementally
+    // But we still need them for Zapier integration
     if (!allData.email || !allData.firstName) {
-      console.error('❌ Missing required fields!');
-      console.error('   Email:', allData.email);
-      console.error('   First Name:', allData.firstName);
-      console.error('   Full data:', allData);
-      alert('Error: Missing email or name. Please complete all survey fields.');
-      return;
+      console.warn('⚠️ Missing email or name - Zapier submission may fail, but Google Sheets data will still be updated');
     }
 
     console.log('✅ Required fields present:');

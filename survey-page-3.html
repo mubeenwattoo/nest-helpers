@@ -2,6 +2,14 @@
 <html>
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6ZY1KSD55X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6ZY1KSD55X');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,6 +24,7 @@
 <!-- Contentsquare (Hotjar) Tracking Code -->
 <script src="https://t.contentsquare.net/uxa/ce07a67e879d5.js"></script>
 <!-- End Contentsquare Tracking Code -->
+<script data-google-script-url="https://script.google.com/macros/s/AKfycbytgLUmFFaCI7SVRptxOHCY7f5aP9dNiRMhf-KuYqrkPc-ehKqv1SJp3HAmLsbSFYK6/exec"></script>
 </head>
 
 <body class="font-[lexend]">
@@ -243,11 +252,7 @@
                             </div>
                         </div>
                         </div>
-                       
-
-
-
-
+        
                     </div>
 
                 </div>
@@ -347,7 +352,7 @@
 
 
     <!-- ======================= JS FOR THE PILLS ======================= -->
-   
+    <script src="./assets/js/survey-submit.js"></script>
 <script>
     // =============================
     // VALIDATION LOGIC
@@ -566,6 +571,7 @@
 
         // Save to localStorage
         localStorage.setItem('surveyData', JSON.stringify(data));
+        return data;
     }
 
     // CONTINUE BUTTON NAVIGATION
@@ -610,10 +616,29 @@
             return;
         }
         
-        // Save data before navigating
-        savePage3Data();
+        // Save data and submit immediately
+        const pageData = savePage3Data();
+        
+        // Submit to Google Sheets immediately (non-blocking)
+        if (typeof submitToGoogleSheetsIncremental === 'function') {
+            submitToGoogleSheetsIncremental(pageData, 'survey-page-3').catch(err => {
+                console.error('Error submitting page 3 data:', err);
+            });
+        }
+        
+        // Navigate to next page
         window.location.href = "host-pricing-page.html";
     });
+    
+    // Setup auto-submit when user leaves the page
+    if (typeof setupAutoSubmitOnLeave === 'function') {
+        setupAutoSubmitOnLeave(savePage3Data, 'survey-page-3');
+    }
+    
+    // Setup real-time submission as user interacts with form
+    if (typeof setupRealTimeSubmit === 'function') {
+        setupRealTimeSubmit(savePage3Data, 'survey-page-3', 3000);
+    }
 
 </script>
 

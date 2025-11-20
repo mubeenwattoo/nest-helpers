@@ -2,6 +2,14 @@
 <html>
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6ZY1KSD55X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6ZY1KSD55X');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,6 +21,7 @@
 
     <title>Guest Survey Page 2</title>
 <script src="https://t.contentsquare.net/uxa/ce07a67e879d5.js"></script>
+<script data-google-script-url="https://script.google.com/macros/s/AKfycbytgLUmFFaCI7SVRptxOHCY7f5aP9dNiRMhf-KuYqrkPc-ehKqv1SJp3HAmLsbSFYK6/exec"></script>
 </head>
 
 <body class="font-[lexend]">
@@ -192,6 +201,7 @@
             </p>
         </div>
     </footer>
+<script src="./assets/js/survey-submit.js"></script>
 <script>
     document.querySelectorAll("[data-pill]").forEach(pill => {
         pill.addEventListener("click", () => {
@@ -250,16 +260,38 @@
             .map(pill => pill.textContent.trim())[0] || '';
         data.foodArrangement = selectedFood;
         localStorage.setItem('surveyData', JSON.stringify(data));
+        return data;
     }
     const continueBtn = document.getElementById("continueBtn");
-    continueBtn.addEventListener("click", (e) => {
+    continueBtn.addEventListener("click", async (e) => {
         if (continueBtn.classList.contains("opacity-30")) {
             e.preventDefault();
             return;
         }
-        savePage2Data();
+        
+        // Save data and submit immediately
+        const pageData = savePage2Data();
+        
+        // Submit to Google Sheets immediately (non-blocking)
+        if (typeof submitToGoogleSheetsIncremental === 'function') {
+            submitToGoogleSheetsIncremental(pageData, 'survey-page-2').catch(err => {
+                console.error('Error submitting page 2 data:', err);
+            });
+        }
+        
+        // Navigate to next page
         window.location.href = "survey-page-3.html";
     });
+    
+    // Setup auto-submit when user leaves the page
+    if (typeof setupAutoSubmitOnLeave === 'function') {
+        setupAutoSubmitOnLeave(savePage2Data, 'survey-page-2');
+    }
+    
+    // Setup real-time submission as user interacts with form
+    if (typeof setupRealTimeSubmit === 'function') {
+        setupRealTimeSubmit(savePage2Data, 'survey-page-2', 3000);
+    }
 </script>
 
 
