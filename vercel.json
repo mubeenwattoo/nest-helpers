@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/helpers",
+      "destination": "https://helpers-ruddy.vercel.app"
+    },
+    {
+      "source": "/helpers/:path*",
+      "destination": "https://helpers-ruddy.vercel.app/:path*"
+    }
+  ]
+}
