@@ -12,7 +12,6 @@
  
 
 <title>Guest Pricing Page: Send</title>
-<!-- Contentsquare (Hotjar) Tracking -->
 <script src="https://t.contentsquare.net/uxa/ce07a67e879d5.js"></script>
 </head>
 <body class="font-[lexend] gradient-bg ">
@@ -26,209 +25,20 @@
 </h2>
 
 <span class="lg:text-[24px] text-[16px] font-[400] text-[#2D2D2D]">Thank you for your submission!</span>
-<div class=" text-center ">
+ <div class="mt-6 text-center">
     <a href="#" class="text-[#7D7A74] underline lg:text-[20px] text-[16px] font-[400]">Have Questions? Let us know</a>
   </div>
 </div>
-
-
 </section>
-
-<!-- 
-  ===================================================================
-  ZAPIER & HIREFLIX INTEGRATION
-  ===================================================================
-  
-  This script automatically sends candidate email and name to Zapier
-  when the user reaches the thank you page after completing the survey.
-  
-  Zapier webhook will then trigger Hireflix to create a candidate and
-  send the interview invitation email.
-  
-  To set up:
-  1. Create a Zapier webhook trigger (Catch Hook)
-  2. Add Hireflix action or Custom Webhook to call Hireflix API
-  3. Configure the webhook URL below (already configured)
-  
-  See setup guide below for detailed instructions.
-  ===================================================================
-  
-  COMPLETE SETUP GUIDE - ZAPIER TO HIREFLIX:
-  ==========================================
-  
-  STEP 1: Create Zapier Webhook Trigger
-  --------------------------------------
-  1. Go to zapier.com and create a new Zap
-  2. Choose "Webhooks by Zapier" as the trigger
-  3. Select "Catch Hook" event
-  4. Click "Continue"
-  5. Copy the webhook URL (it should look like: https://hooks.zapier.com/hooks/catch/...)
-  6. Test the trigger by sending a sample webhook (optional)
-  7. Click "Continue"
-  
-  STEP 2: Add Hireflix Action
-  ----------------------------
-  Option A: If Hireflix has a Zapier Integration
-  ----------------------------------------------
-  1. Search for "Hireflix" in the action apps
-  2. If found, select "Hireflix" and choose "Create Candidate" or "Send Interview Invitation"
-  3. Connect your Hireflix account
-  4. Map the fields:
-     - Email: Select "email" from the webhook data
-     - Name: Select "name" from the webhook data
-  5. Test the action
-  6. Turn on the Zap
-  
-  Option B: Use Custom Webhook (GraphQL API) - RECOMMENDED
-  --------------------------------------------------------
-  If Hireflix doesn't have a direct Zapier integration, use a Custom Webhook:
-  
-  1. In Zapier, add a new action step
-  2. Search for "Webhooks by Zapier"
-  3. Select "POST" method
-  4. Configure the webhook:
-     - URL: https://admin.hireflix.com/api/graphql (or your Hireflix API endpoint)
-     - Method: POST
-     - Data Pass-Through: No
-     - Headers:
-       Key: Content-Type
-       Value: application/json
-       Key: Authorization
-       Value: Bearer YOUR_HIREFLIX_API_KEY
-     - Data (JSON):
-       {
-         "query": "mutation CreateCandidateAndSendInvitation($email: String!, $name: String!) { createCandidate(input: { email: $email, name: $name }) { id email name interviewInvitationSent } sendInterviewInvitation(candidateEmail: $email) { success message } }",
-         "variables": {
-           "email": "{{email}}",
-           "name": "{{name}}"
-         }
-       }
-  
-  5. Replace YOUR_HIREFLIX_API_KEY with your actual API key
-  6. Test the action
-  7. Turn on the Zap
-  
-  STEP 3: Verify Your Webhook URL
-  --------------------------------
-  Make sure the webhook URL in this file matches your Zapier webhook URL.
-  Current URL: https://hooks.zapier.com/hooks/catch/25392582/u8080bk/
-  
-  STEP 4: Test the Integration
-  ----------------------------
-  1. Complete the survey on your website
-  2. Check Zapier dashboard to see if the webhook was received
-  3. Check Hireflix to see if the candidate was created
-  4. Verify the interview invitation email was sent
-  
-  TROUBLESHOOTING:
-  ----------------
-  - If webhook not received: Check browser console for errors
-  - If Hireflix API fails: Verify API key and endpoint URL
-  - If candidate not created: Check Hireflix API documentation for correct mutation
-  - Check Zapier task history for detailed error messages
-  
-  ===================================================================
--->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // ============================================================
-  // CONFIGURATION: Zapier Webhook URL
-  // ============================================================
-  // Replace this with your actual Zapier webhook URL
-  // You can find this in your Zapier Zap settings
-  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25392582/u8080bk/';
-  // ============================================================
-  
-  // Retrieve email and name from localStorage (stored by guest-pricing-page.html)
-  const emailData = localStorage.getItem('hireflixData');
-  
-  if (emailData) {
-    try {
-      const { email, name } = JSON.parse(emailData);
-      
-      // Only proceed if both email and name are available
-      if (email && name) {
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-          console.warn('Invalid email format, skipping email integration:', email);
-          localStorage.removeItem('hireflixData');
-          return;
-        }
-        
-        // Prepare data to send to Zapier
-        const emailValue = email.trim();
-        const nameValue = name.trim();
-        
-        // Log what we're sending (for testing/debugging)
-        console.log('📤 Sending data to Zapier:', { email: emailValue, name: nameValue });
-        console.log('🔗 Zapier webhook:', ZAPIER_WEBHOOK_URL);
-        
-        // Send request to Zapier webhook using FormData to avoid CORS issues
-        // Zapier webhooks work best with form data or URL-encoded data
-        const formData = new FormData();
-        formData.append('email', emailValue);
-        formData.append('name', nameValue);
-        
-        // Send request to Zapier webhook
-        fetch(ZAPIER_WEBHOOK_URL, {
-          method: 'POST',
-          body: formData,
-          keepalive: true // Ensures request completes even if page unloads
-          // Don't set Content-Type header - browser will set it automatically with boundary for FormData
-        })
-        .then(async (response) => {
-          const responseData = await response.json().catch(() => ({ error: 'Failed to parse response' }));
-          
-          if (response.ok) {
-            console.log('✅ Data successfully sent to Zapier!');
-            console.log('📥 Zapier Response:', responseData);
-            console.log('📋 Sent Data:', { email: emailValue, name: nameValue });
-          } else {
-            console.error('❌ Zapier webhook returned error:', response.status);
-            console.error('📥 Full Response:', JSON.stringify(responseData, null, 2));
-            console.error('📋 Attempted to send:', { email: emailValue, name: nameValue });
-          }
-        })
-        .catch((error) => {
-          // Log errors for debugging
-          console.error('❌ Zapier integration error:', error);
-          console.error('📋 Failed to send:', { email: emailValue, name: nameValue });
-          console.error('💡 Make sure the Zapier webhook URL is correct');
-        });
-        
-        // Clean up localStorage after sending (success or failure)
-        localStorage.removeItem('hireflixData');
-      } else {
-        console.warn('Missing email or name data for email integration');
-        localStorage.removeItem('hireflixData');
-      }
-    } catch (error) {
-      console.error('Error parsing email data from localStorage:', error);
-      localStorage.removeItem('hireflixData');
-    }
-  } else {
-    // No email data found - this is normal if user navigated directly to this page
-    // or if data was already sent/cleared
-    console.debug('No email data found in localStorage');
-  }
-});
-</script>
-
-
-
-
 <footer class="w-full bg-[#2E2E2E] pt-[42px] pb-[32px] lg:px-[64px] px-[24px] lg:relative absolute bottom-0">
   <div class="w-full mx-auto text-center">
-
 <img src="./assets/images/logo.png" alt="logo" class="lg:w-[124px] lg:h-[48px] w-[82px] h-[32px] mx-auto ">
-
-
     <hr class="border-[#7D7A74] lg:mb-12 mb-6 lg:mt-10 mt-5">
 
     <p class="text-[#7D7A74] text-[16px] font-[400]">
       © 2025 NestHelpers. All rights reserved.
     </p>
+   
   </div>
 </footer>
 
