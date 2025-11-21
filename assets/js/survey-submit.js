@@ -19,7 +19,27 @@ function getSessionId() {
 }
 
 // Get Airtable configuration
+// First try from window.AIRTABLE_CONFIG (from external config file)
+// Fallback to data attributes in script tag
 function getAirtableConfig() {
+    let config = null;
+    
+    // Check if config is available from external config file
+    if (window.AIRTABLE_CONFIG) {
+        config = { ...window.AIRTABLE_CONFIG };
+        // Decode API key if it's encoded
+        if (config.apiKeyEncoded) {
+            try {
+                config.apiKey = atob(config.apiKeyEncoded);
+            } catch (e) {
+                console.error('Error decoding API key:', e);
+                return null;
+            }
+        }
+        return config;
+    }
+    
+    // Fallback to script tag data attributes
     const scriptTag = document.querySelector('script[data-airtable-base-id]');
     if (!scriptTag) {
         return null;
