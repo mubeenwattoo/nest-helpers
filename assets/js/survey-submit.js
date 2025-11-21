@@ -134,8 +134,7 @@ async function submitToGoogleSheetsIncremental(pageData, pageName) {
         baseId: config.baseId,
         tableName: config.tableName,
         url: airtableUrl,
-        fields: cleanedData,
-        allFields: airtableData
+        fields: cleanedData
     });
 
     try {
