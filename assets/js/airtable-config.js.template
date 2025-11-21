@@ -1,10 +1,10 @@
-// Airtable Configuration Template
-// Copy this file to airtable-config.js and add your API key
-// airtable-config.js is in .gitignore and won't be committed to Git
+// Airtable Configuration
+// IMPORTANT: This file is in .gitignore - it won't be committed to Git
+// Copy this template and create airtable-config.js with your actual API key
 
 window.AIRTABLE_CONFIG = {
     baseId: 'appy5HnUexfMq454A',
     tableName: 'NestHelpers',
-    apiKey: 'YOUR_AIRTABLE_API_KEY_HERE'
+    apiKey: 'pat2LIh9zDMXus1zP.cdc6e1b6bb4e939b1f9d0ce5a6b1da5ecd9f2e55106bbc88cf2b2865b8c1062c'
 };
 
