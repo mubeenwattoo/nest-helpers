@@ -9,17 +9,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Note: airtable-config.js is now in Git with encoded API key
+# Note: airtable-config.js is in Git with encoded API key
 # This prevents GitHub secret scanning while still working on Vercel
-
-# Node modules
-node_modules/
-
-# Environment files
-.env
-.env.local
-
-# OS files
-.DS_Store
-Thumbs.db
 
