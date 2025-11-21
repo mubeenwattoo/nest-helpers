@@ -41,7 +41,9 @@ src="https://www.facebook.com/tr?id=409710449219518&ev=PageView&noscript=1"
 <!-- Contentsquare (Hotjar) Tracking Code -->
 <script src="https://t.contentsquare.net/uxa/ce07a67e879d5.js"></script>
 <!-- End Contentsquare Tracking Code -->
-<script data-google-script-url="https://script.google.com/macros/s/AKfycbytgLUmFFaCI7SVRptxOHCY7f5aP9dNiRMhf-KuYqrkPc-ehKqv1SJp3HAmLsbSFYK6/exec"></script>
+<script data-airtable-base-id="appy5HnUexfMq454A" 
+        data-airtable-table-name="NestHelpers" 
+        data-airtable-api-key="pat2LIh9zDMXus1zP.cdc6e1b6bb4e939b1f9d0ce5a6b1da5ecd9f2e55106bbc88cf2b2865b8c1062c"></script>
 </head>
 
 <body class="font-[lexend]">
@@ -555,7 +557,12 @@ src="https://www.facebook.com/tr?id=409710449219518&ev=PageView&noscript=1"
         const dropdowns = document.querySelectorAll(".dropdown-field");
         dropdowns.forEach((dropdown, index) => {
             const valueSpan = dropdown.querySelector(".dropdown-value");
-            const value = valueSpan ? valueSpan.textContent.trim() : '';
+            let value = valueSpan ? valueSpan.textContent.trim() : '';
+            
+            // Replace "Select" with "Not Selected Yet"
+            if (value === 'Select' || value === '') {
+                value = 'Not Selected Yet';
+            }
             
             // Identify dropdown by its position or parent context
             const label = dropdown.closest('.flex').querySelector('span');
@@ -595,8 +602,9 @@ src="https://www.facebook.com/tr?id=409710449219518&ev=PageView&noscript=1"
     // =============================
     const continueBtn = document.getElementById("continueBtn");
 
-    continueBtn.addEventListener("click", (e) => {
-        if (continueBtn.classList.contains("opacity-30")) {
+    let isSubmitting = false; // Prevent duplicate submissions
+    continueBtn.addEventListener("click", async (e) => {
+        if (continueBtn.classList.contains("opacity-30") || isSubmitting) {
             e.preventDefault();
             return;
         }
@@ -633,29 +641,31 @@ src="https://www.facebook.com/tr?id=409710449219518&ev=PageView&noscript=1"
             return;
         }
         
+        isSubmitting = true; // Set flag to prevent duplicate clicks
+        continueBtn.disabled = true; // Disable button
+        
         // Save data and submit immediately
         const pageData = savePage3Data();
         
-        // Submit to Google Sheets immediately (non-blocking)
+        // Submit to Airtable and wait for it to complete
         if (typeof submitToGoogleSheetsIncremental === 'function') {
-            submitToGoogleSheetsIncremental(pageData, 'survey-page-3').catch(err => {
+            try {
+                await submitToGoogleSheetsIncremental(pageData, 'survey-page-3');
+                console.log('✅ Page 3 data submitted successfully');
+            } catch (err) {
                 console.error('Error submitting page 3 data:', err);
-            });
+            }
         }
+        
+        // Small delay to ensure submission completes
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Navigate to next page
         window.location.href = "host-pricing-page.html";
     });
     
-    // Setup auto-submit when user leaves the page
-    if (typeof setupAutoSubmitOnLeave === 'function') {
-        setupAutoSubmitOnLeave(savePage3Data, 'survey-page-3');
-    }
-    
-    // Setup real-time submission as user interacts with form
-    if (typeof setupRealTimeSubmit === 'function') {
-        setupRealTimeSubmit(savePage3Data, 'survey-page-3', 3000);
-    }
+    // NOTE: Auto-submit functions removed to prevent duplicate submissions
+    // Data is submitted only when user clicks Continue button
 
 </script>
 

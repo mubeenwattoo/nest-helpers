@@ -167,7 +167,6 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
-
 // Optional: Test function to verify the script works
 function testDoPost() {
   const mockEvent = {
@@ -193,4 +192,5 @@ function testDoPost() {
   const result = doPost(mockEvent);
   Logger.log(result.getContent());
 }
+
 
