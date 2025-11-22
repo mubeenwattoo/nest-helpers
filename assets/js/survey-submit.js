@@ -101,7 +101,7 @@ async function submitToGoogleSheetsIncremental(pageData, pageName) {
         return `${month}/${day}`;
     };
     
-    // Helper function to format time as hours:minutes in 24-hour format with AM/PM (e.g., 00:48 AM, 13:00 PM, 23:59 PM)
+    // Helper function to format time as hours:minutes in 24-hour format with AM/PM (e.g., 01:03 AM, 13:03 PM, 23:59 PM)
     const formatTime = () => {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
@@ -143,7 +143,7 @@ async function submitToGoogleSheetsIncremental(pageData, pageName) {
         'Selected Plan': formatValue(allData.selectedPlan),
         // Field 16: Date (month/day format, e.g., 11/23)
         'Date': formatDate(),
-        // Field 17: Time (24-hour format with AM/PM, e.g., 00:48 AM, 13:00 PM, 23:59 PM)
+        // Field 17: Time (24-hour format with AM/PM, e.g., 01:03 AM, 13:03 PM, 23:59 PM)
         'Time': formatTime()
     };
     
